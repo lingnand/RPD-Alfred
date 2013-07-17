@@ -18,8 +18,8 @@ Screenshots
 
 ![](screenshots/douban-alfred-main.png)
 
-<a id="commands"></a>
 ![](screenshots/douban-alfred-commands.png)
+<a id="commands"></a>
 
 ![](screenshots/douban-alfred-channels.png)
 
