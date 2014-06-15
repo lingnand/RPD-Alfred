@@ -1,132 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>bundleid</key>
-	<string></string>
-	<key>connections</key>
-	<dict>
-		<key>1EF4DAEA-621A-433E-8DF7-68C77B79C640</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>3174365D-756A-4565-8208-7C368F21F146</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-		<key>3174365D-756A-4565-8208-7C368F21F146</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>5D269323-EF22-4736-9462-66AB05DDED58</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-	</dict>
-	<key>createdby</key>
-	<string>Lingnan Dai</string>
-	<key>description</key>
-	<string>A control interface for FMC</string>
-	<key>disabled</key>
-	<false/>
-	<key>name</key>
-	<string>DoubanFM</string>
-	<key>objects</key>
-	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>hotkey</key>
-				<integer>0</integer>
-				<key>hotmod</key>
-				<integer>0</integer>
-				<key>hotstring</key>
-				<string></string>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>1EF4DAEA-621A-433E-8DF7-68C77B79C640</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>douban</string>
-				<key>runningsubtext</key>
-				<string>Connecting to FMC</string>
-				<key>script</key>
-				<string>###### change FMC_BIN / FMD_BIN if they are stored at some custom location
-export FMC_BIN=~/bin/fmc
-export FMD_BIN=~/bin/fmd
-bash fmc-script.sh "{query}"</string>
-				<key>subtext</key>
-				<string>press space to see the full command list</string>
-				<key>title</key>
-				<string>Douban</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>3174365D-756A-4565-8208-7C368F21F146</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>126</integer>
-				<key>script</key>
-				<string>bash fmc.sh {query}</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.script</string>
-			<key>uid</key>
-			<string>5D269323-EF22-4736-9462-66AB05DDED58</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-	</array>
-	<key>readme</key>
-	<string>DoubanFM-Alfred 
+  <dict>
+    <key>bundleid</key>
+    <string/>
+    <key>connections</key>
+    <dict>
+      <key>1EF4DAEA-621A-433E-8DF7-68C77B79C640</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>3174365D-756A-4565-8208-7C368F21F146</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+        </dict>
+      </array>
+      <key>3174365D-756A-4565-8208-7C368F21F146</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>5D269323-EF22-4736-9462-66AB05DDED58</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Lingnan Dai</string>
+    <key>description</key>
+    <string>A control interface for RPD</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>rpc</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>action</key>
+          <integer>0</integer>
+          <key>argument</key>
+          <integer>0</integer>
+          <key>hotkey</key>
+          <integer>0</integer>
+          <key>hotmod</key>
+          <integer>0</integer>
+          <key>hotstring</key>
+          <string/>
+          <key>leftcursor</key>
+          <false/>
+          <key>modsmode</key>
+          <integer>0</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.trigger.hotkey</string>
+        <key>uid</key>
+        <string>1EF4DAEA-621A-433E-8DF7-68C77B79C640</string>
+        <key>version</key>
+        <integer>0</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>0</integer>
+          <key>keyword</key>
+          <string>douban</string>
+          <key>runningsubtext</key>
+          <string>Connecting to FMC</string>
+          <key>script</key>
+          <string>bash rpc-script.sh "{query}"</string>
+          <key>subtext</key>
+          <string>press space to see the full command list</string>
+          <key>title</key>
+          <string>rpc</string>
+          <key>type</key>
+          <integer>0</integer>
+          <key>withspace</key>
+          <true/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>3174365D-756A-4565-8208-7C368F21F146</string>
+        <key>version</key>
+        <integer>0</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>escaping</key>
+          <integer>126</integer>
+          <key>script</key>
+          <string>bash rpc {query}</string>
+          <key>type</key>
+          <integer>0</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.script</string>
+        <key>uid</key>
+        <string>5D269323-EF22-4736-9462-66AB05DDED58</string>
+        <key>version</key>
+        <integer>0</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>RPD-Alfred 
 ==============
 
-[DoubanFM-Alfred](https://github.com/yulan6248/DoubanFM-Alfred) is an Alfred extension that provides a full Douban.FM control interface (on the keyboard). 
+[RPD-Alfred](https://github.com/lynnard/RPD-Alfred) is an Alfred extension that provides a full RPD control interface (on the keyboard). 
 
 Commands
 --------
 
-The command set mainly comes from that of [fmc]. Some additional commands include
-
-- `quality &lt;64/128/192&gt;` change the bitrate of the music (will restart the `fmd` daemon); this only ever makes sense for paid users of Douban.FM
-- `launch` launch the `fmd` daemon
+The command set mainly comes from that of [RPC].
 
 If you are unsure about what commands to enter, you can input a space after the keyword of this extension; that will bring up the whole list of commands. A demo screenshot can be seen in the next [section](#commands).
 
@@ -135,42 +129,40 @@ Installation
 
 First you need to make sure you have [Alfred2](http://www.alfredapp.com/) with [Powerpack](http://www.alfredapp.com/powerpack/).
 
-Then you need to install [fmd](https://github.com/hzqtc/fmd) and [fmc]. Follow the installation guideline for both programs.
+Then you need to install [RPD](http://rpd.lynnard.tk) and [RPC]. Follow the installation guideline for both programs.
 
-After that you can download the binary version of this extension using this [link](https://github.com/yulan6248/DoubanFM-Alfred/raw/master/DoubanFM.alfredworkflow) or if you're a developer you can clone this repo and play around with the files to your heart's content.
+After that you can download the binary version of this extension using this [link](https://github.com/lynnard/RPD-Alfred/raw/master/RPD.alfredworkflow) or if you're a developer you can clone this repo and play around with the files to your heart's content.
 
 Set a keyboard shortcut inside the workflow editor window if you feel like that.
-
-**Note** : If you store your `fmd` and `fmc` at custom locations other than `$PATH`; please remember to edit the two variables `FMD_BIN` and `FMC_BIN` in the script filter.
 
 Contact
 -------
 
-I understand that there might be bugs regarding this extension, please head on to [Issues](https://github.com/yulan6248/DoubanFM-Alfred/issues) if you encounter any.
+I understand that there might be bugs regarding this extension, please head on to [Issues](https://github.com/lynnard/RPD-Alfred/issues) if you encounter any.
 
 
 
 
-[fmc]: https://github.com/hzqtc/fmc</string>
-	<key>uidata</key>
-	<dict>
-		<key>1EF4DAEA-621A-433E-8DF7-68C77B79C640</key>
-		<dict>
-			<key>ypos</key>
-			<real>20</real>
-		</dict>
-		<key>3174365D-756A-4565-8208-7C368F21F146</key>
-		<dict>
-			<key>ypos</key>
-			<real>20</real>
-		</dict>
-		<key>5D269323-EF22-4736-9462-66AB05DDED58</key>
-		<dict>
-			<key>ypos</key>
-			<real>20</real>
-		</dict>
-	</dict>
-	<key>webaddress</key>
-	<string></string>
-</dict>
+[RPC]: https://github.com/lynnard/RPC</string>
+    <key>uidata</key>
+    <dict>
+      <key>1EF4DAEA-621A-433E-8DF7-68C77B79C640</key>
+      <dict>
+        <key>ypos</key>
+        <real>20</real>
+      </dict>
+      <key>3174365D-756A-4565-8208-7C368F21F146</key>
+      <dict>
+        <key>ypos</key>
+        <real>20</real>
+      </dict>
+      <key>5D269323-EF22-4736-9462-66AB05DDED58</key>
+      <dict>
+        <key>ypos</key>
+        <real>20</real>
+      </dict>
+    </dict>
+    <key>webaddress</key>
+    <string/>
+  </dict>
 </plist>
