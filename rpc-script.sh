@@ -1,7 +1,7 @@
 #!/bin/bash
 # set up the global variables 
 
-RPCBIN="rpc"
+RPCBIN="/usr/local/bin/rpc"
 
 cat << EOB
 <?xml version="1.0"?>
@@ -9,10 +9,10 @@ cat << EOB
 EOB
 
 orig="$1"
-commands=( 'play' 'pause' 'toggle' 'next' 'setch' 'launch' 'rate' 'unrate' 'ban' 'kbps')
-descs=( '' '' 'toggle the status of the song' 'skip to the next song' 'select a channel' 'restart the fmd daemon' 'rate the current song' 'unrate the current song' 'ban the current song' 'change the bitrate' )
-icons=( 'play.png' 'pause.png' 'toggle.png' 'next.png' 'channel.png' 'restart.png' 'liked.png' 'like.png' 'ban.png' 'quality.png' )
-validity=( 'yes' 'yes' 'yes' 'yes' 'no' 'yes' 'yes' 'yes' 'yes' 'no' )
+commands=( 'play' 'pause' 'toggle' 'next' 'setch' 'launch' 'rate' 'unrate' 'ban' 'kbps' 'stop')
+descs=( '' '' 'toggle the status of the song' 'skip to the next song' 'select a channel' 'restart the fmd daemon' 'rate the current song' 'unrate the current song' 'ban the current song' 'change the bitrate' '')
+icons=( 'play.png' 'pause.png' 'toggle.png' 'next.png' 'channel.png' 'restart.png' 'liked.png' 'like.png' 'ban.png' 'quality.png' 'stop.png')
+validity=( 'yes' 'yes' 'yes' 'yes' 'no' 'yes' 'yes' 'yes' 'yes' 'no' 'yes')
 
 if [ -n "$orig" ]; then
     # first need to cut the space out
@@ -45,8 +45,8 @@ if [ -n "$orig" ]; then
                     channel_id="${channel%% *}"
                     channel_name="${channel#* }"
                     cat << EOB
-                      <item uid="rpc channel" arg="setch $channel_id" autocomplete="setch $channel_id">
-                        <title>$channel_name</title>
+                      <item uid="lingnan.rpc.channel.$channel_id" arg="setch $channel_id" autocomplete="setch $channel_id">
+                        <title>${channel_name//&/&amp;}</title>
                         <subtitle></subtitle>
                         <icon>channel.png</icon>
                       </item>
@@ -55,8 +55,8 @@ EOB
             done
             if ! $found; then
                 cat << EOB
-                  <item uid="rpc channel" arg="setch $channel_search" autocomplete="setch $channel_search">
-                    <title>search Jing.fm for $channel_search</title>
+                  <item uid="lingnan.rpc.channel.${channel_search}" arg="setch $channel_search" autocomplete="setch $channel_search">
+                    <title>search Jing.fm for ${channel_search//&/&amp;}</title>
                     <subtitle></subtitle>
                     <icon>channel.png</icon>
                   </item>
@@ -74,7 +74,7 @@ EOB
                 if [[ "$bit" = "$quality_search"* ]]; then
                     exp="$bit kbps"
                     cat << EOB
-                      <item uid="rpc kbps" arg="kbps $bit" autocomplete="kbps $bit">
+                      <item uid="lingnan.rpc.kbps.$bit" arg="kbps $bit" autocomplete="kbps $bit">
                         <title>$exp</title>
                         <subtitle></subtitle>
                         <icon>quality.png</icon>
@@ -88,7 +88,7 @@ EOB
             do
                 if [[ "${commands[$i]}" = "$orig"* ]]; then
                         cat << EOB
-                          <item uid="rpc command" arg="${commands[$i]}" autocomplete="${commands[$i]}" valid="${validity[$i]}">
+                          <item uid="lingnan.rpc.command.${commands[$i]}" arg="${commands[$i]}" autocomplete="${commands[$i]}" valid="${validity[$i]}">
                             <title>${commands[$i]}</title>
                             <subtitle>${descs[$i]}</subtitle>
                             <icon>${icons[$i]}</icon>
@@ -145,8 +145,8 @@ else
 
     if ! $stopped; then
         cat << EOB
-          <item uid="rpc channel" autocomplete="setch" valid="no">
-            <title>$CHANNEL</title>
+          <item uid="lingnan.rpc.command.setch" autocomplete="setch" valid="no">
+            <title>${CHANNEL//&/&amp;}</title>
             <subtitle>$QUALITY kbps</subtitle>
             <icon>channel.png</icon>
           </item>
@@ -154,15 +154,15 @@ EOB
     fi
 
 cat << EOB
-      <item uid="rpc song" arg="toggle" autocomplete="$toggle_command">
-        <title>$SONG</title>
-        <subtitle>$ARTIST</subtitle>
+      <item uid="lingnan.rpc.command.toggle" arg="toggle" autocomplete="$toggle_command">
+        <title>${SONG//&/&amp;}</title>
+        <subtitle>${ARTIST//&/&amp;}</subtitle>
         <icon>$status_icon</icon>
       </item>
 EOB
     if ! $stopped; then
         cat << EOB
-          <item uid="rpc like" arg="$like_cmd" autocomplete="$like_cmd">
+          <item uid="lingnan.rpc.command.$like_cmd" arg="$like_cmd" autocomplete="$like_cmd">
             <title>$like_title</title>
             <subtitle></subtitle>
             <icon>$like_icon</icon>
