@@ -75,6 +75,14 @@
 				<integer>0</integer>
 				<key>keyword</key>
 				<string>douban</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>Connecting to RPD</string>
 				<key>script</key>
@@ -98,10 +106,19 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>/usr/local/bin/rpc "{query}"</string>
+				<string>query='{query}'
+if [ "$query" = start ]; then
+	/usr/local/bin/rpd
+elif [ "$query" = end ]; then
+	pkill -x rpd
+else
+	/usr/local/bin/rpc "$query"
+fi</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>

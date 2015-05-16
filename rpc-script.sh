@@ -9,10 +9,10 @@ cat << EOB
 EOB
 
 orig="$1"
-commands=( 'play' 'pause' 'toggle' 'next' 'setch' 'launch' 'rate' 'unrate' 'ban' 'kbps' 'stop')
-descs=( '' '' 'toggle the status of the song' 'skip to the next song' 'select a channel' 'restart the fmd daemon' 'rate the current song' 'unrate the current song' 'ban the current song' 'change the bitrate' '')
-icons=( 'play.png' 'pause.png' 'toggle.png' 'next.png' 'channel.png' 'restart.png' 'liked.png' 'like.png' 'ban.png' 'quality.png' 'stop.png')
-validity=( 'yes' 'yes' 'yes' 'yes' 'no' 'yes' 'yes' 'yes' 'yes' 'no' 'yes')
+commands=( 'play' 'pause' 'toggle' 'next' 'setch ' 'launch' 'rate' 'unrate' 'ban' 'kbps ' 'start' 'stop' 'end' )
+descs=( '' '' 'toggle the status of the song' 'skip to the next song' 'select a channel' 'restart the fmd daemon' 'rate the current song' 'unrate the current song' 'ban the current song' 'launch rpd' 'change the bitrate' '' 'kill rpd process' )
+icons=( 'play.png' 'pause.png' 'toggle.png' 'next.png' 'channel.png' 'restart.png' 'liked.png' 'like.png' 'ban.png' 'quality.png' 'power.png' 'stop.png' 'power.png' )
+validity=( 'yes' 'yes' 'yes' 'yes' 'no' 'yes' 'yes' 'yes' 'yes' 'no' 'yes' 'yes' 'yes' )
 
 if [ -n "$orig" ]; then
     # first need to cut the space out
@@ -99,75 +99,85 @@ EOB
             ;;
     esac
 else 
-    oldIFS=$IFS
-    IFS=$'\n'
-    QUERY=(`"$RPCBIN" info $'%u\n%c\n%t\n%a\n%k\n%r'`)
-    IFS="$oldIFS"
-    STATUS="${QUERY[0]}"
-    CHANNEL="${QUERY[1]}"
-    SONG="${QUERY[2]}"
-    ARTIST="${QUERY[3]}"
-    QUALITY="${QUERY[4]}"
-    LIKE="${QUERY[5]}"
-    stopped=false
-    toggle_command=toggle
-    if [ "$LIKE" = 1 ]; then
-        like_cmd='unrate'
-        like_title='Liked'
-        like_icon='liked.png'
+    if ! pgrep rpd; then
+            cat << EOB
+              <item uid="lingnan.rpc.command.rpd" arg="start" autocomplete="start" valid="yes">
+                <title>start</title>
+                <subtitle>launch rpd</subtitle>
+                <icon>stop.png</icon>
+              </item>
+EOB
     else
-        like_cmd='rate'
-        like_title='Like'
-        like_icon='like.png'
-    fi
-    case "$STATUS" in
-        play) 
-            status_icon="play.png"
-            toggle_icon="pause.png"
-            ;;
-        pause)
-            status_icon="pause.png"
-            toggle_icon="play.png"
-            ;;
-        stop)
-            stopped=true
-            SONG=Stopped
-            status_icon="stop.png"
-            toggle_icon="play.png"
-            ;;
-        error)
-            stopped=true
-            SONG=Disconnected
-            status_icon="stop.png"
-            toggle_icon="play.png"
-            toggle_command='launch'
-    esac
+        oldIFS=$IFS
+        IFS=$'\n'
+        QUERY=(`"$RPCBIN" info $'%u\n%c\n%t\n%a\n%k\n%r'`)
+        IFS="$oldIFS"
+        STATUS="${QUERY[0]}"
+        CHANNEL="${QUERY[1]}"
+        SONG="${QUERY[2]}"
+        ARTIST="${QUERY[3]}"
+        QUALITY="${QUERY[4]}"
+        LIKE="${QUERY[5]}"
+        stopped=false
+        toggle_command=toggle
+        if [ "$LIKE" = 1 ]; then
+            like_cmd='unrate'
+            like_title='Liked'
+            like_icon='liked.png'
+        else
+            like_cmd='rate'
+            like_title='Like'
+            like_icon='like.png'
+        fi
+        case "$STATUS" in
+            play) 
+                status_icon="play.png"
+                toggle_icon="pause.png"
+                ;;
+            pause)
+                status_icon="pause.png"
+                toggle_icon="play.png"
+                ;;
+            stop)
+                stopped=true
+                SONG=Stopped
+                status_icon="stop.png"
+                toggle_icon="play.png"
+                ;;
+            error)
+                stopped=true
+                SONG=Disconnected
+                status_icon="stop.png"
+                toggle_icon="play.png"
+                toggle_command='launch'
+        esac
 
-    if ! $stopped; then
-        cat << EOB
-          <item uid="lingnan.rpc.command.setch" autocomplete="setch" valid="no">
-            <title>${CHANNEL//&/&amp;}</title>
-            <subtitle>$QUALITY kbps</subtitle>
-            <icon>channel.png</icon>
+        if ! $stopped; then
+            cat << EOB
+              <item uid="lingnan.rpc.command.setch" autocomplete="setch " valid="no">
+                <title>${CHANNEL//&/&amp;}</title>
+                <subtitle>$QUALITY kbps</subtitle>
+                <icon>channel.png</icon>
+              </item>
+EOB
+        fi
+
+    cat << EOB
+          <item uid="lingnan.rpc.command.toggle" arg="toggle" autocomplete="$toggle_command">
+            <title>${SONG//&/&amp;}</title>
+            <subtitle>${ARTIST//&/&amp;}</subtitle>
+            <icon>$status_icon</icon>
           </item>
 EOB
-    fi
-
-cat << EOB
-      <item uid="lingnan.rpc.command.toggle" arg="toggle" autocomplete="$toggle_command">
-        <title>${SONG//&/&amp;}</title>
-        <subtitle>${ARTIST//&/&amp;}</subtitle>
-        <icon>$status_icon</icon>
-      </item>
+        if ! $stopped; then
+            cat << EOB
+              <item uid="lingnan.rpc.command.$like_cmd" arg="$like_cmd" autocomplete="$like_cmd">
+                <title>$like_title</title>
+                <subtitle></subtitle>
+                <icon>$like_icon</icon>
+              </item>
 EOB
-    if ! $stopped; then
-        cat << EOB
-          <item uid="lingnan.rpc.command.$like_cmd" arg="$like_cmd" autocomplete="$like_cmd">
-            <title>$like_title</title>
-            <subtitle></subtitle>
-            <icon>$like_icon</icon>
-          </item>
-EOB
+        fi
     fi
 fi
 
