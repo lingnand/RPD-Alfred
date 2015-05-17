@@ -104,7 +104,7 @@ else
               <item uid="lingnan.rpc.command.rpd" arg="start" autocomplete="start" valid="yes">
                 <title>start</title>
                 <subtitle>launch rpd</subtitle>
-                <icon>stop.png</icon>
+                <icon>power.png</icon>
               </item>
 EOB
     else
